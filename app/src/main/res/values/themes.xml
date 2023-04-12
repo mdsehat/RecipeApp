@@ -1,0 +1,38 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Recipe" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+    
+    <!--textInput dark green-->
+    <style name="TextInputDarkGreen" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/darkGreen</item>
+        <item name="boxStrokeWidth">@dimen/_1mdp</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/_15mdp</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/_15mdp</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/_15mdp</item>
+        <item name="boxCornerRadiusTopStart">@dimen/_15mdp</item>
+        <item name="startIconTint">@color/darkGreen</item>
+        <item name="hintTextColor">@color/moonstoneBlue</item>
+        <item name="android:textColor">@color/darkGreen</item>
+        <item name="android:layout_marginTop">@dimen/_10mdp</item>
+    </style>
+
+    <!--material button dark green-->
+    <style name="ButtonDarkGreen">
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="backgroundTint">@color/darkGreen</item>
+        <item name="cornerRadius">@dimen/_15mdp</item>
+    </style>
+</resources>
