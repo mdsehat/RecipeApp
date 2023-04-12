@@ -35,5 +35,5 @@ object Connection {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
             addCapability(NetworkCapabilities.NET_CAPABILITY_FOREGROUND)
 
-    }
+    }.build()
 }

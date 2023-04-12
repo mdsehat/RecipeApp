@@ -17,7 +17,7 @@ class RegisterViewModel @Inject constructor(private val repository: RegisterRepo
 
     //Register api
     val registerLiveData = MutableLiveData<NetworkResponse<ResponseRegister>>()
-    fun register(apiKey: String, body: BodyRegister) = viewModelScope.launch {
+    fun callRegister(apiKey: String, body: BodyRegister) = viewModelScope.launch {
         //Loading
         registerLiveData.value = NetworkResponse.Loading()
         //getData

@@ -7,4 +7,6 @@
     <string name="last_name">Last name</string>
     <string name="username">Username</string>
     <string name="email">Email</string>
+    <string name="emailNotValid">Emial is not valid.</string>
+    <string name="checkConnection">please check your connection.</string>
 </resources>

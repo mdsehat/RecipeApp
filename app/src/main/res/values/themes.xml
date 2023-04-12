@@ -23,6 +23,7 @@
         <item name="boxCornerRadiusTopEnd">@dimen/_15mdp</item>
         <item name="boxCornerRadiusTopStart">@dimen/_15mdp</item>
         <item name="startIconTint">@color/darkGreen</item>
+        <item name="boxStrokeErrorColor">@color/tart_orange</item>
         <item name="hintTextColor">@color/moonstoneBlue</item>
         <item name="android:textColor">@color/darkGreen</item>
         <item name="android:layout_marginTop">@dimen/_10mdp</item>

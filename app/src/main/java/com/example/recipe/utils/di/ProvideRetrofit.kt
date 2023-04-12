@@ -45,6 +45,7 @@ object ProvideRetrofit {
         .readTimeout(time,TimeUnit.SECONDS)
         .connectTimeout(time,TimeUnit.SECONDS)
         .addInterceptor(interceptor)
+        .build()
 
 
     @Provides
