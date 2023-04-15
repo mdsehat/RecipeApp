@@ -24,4 +24,9 @@ class RegisterViewModel @Inject constructor(private val repository: RegisterRepo
         val response = repository.postRegister(apiKey, body)
         registerLiveData.value = NetworkErrorCode(response).ErrorCode()
     }
+
+    //DataStore
+    fun saveData(username:String, hash:String) = viewModelScope.launch {
+        repository.saveDataRegister(username, hash)
+    }
 }

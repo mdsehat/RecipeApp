@@ -81,6 +81,7 @@ class RegisterFragment : Fragment() {
                 }
 
             }
+            //
             loadCallRegister()
         }
     }
@@ -89,7 +90,11 @@ class RegisterFragment : Fragment() {
         viewModel.registerLiveData.observe(viewLifecycleOwner){ response->
             when(response){
                 is NetworkResponse.Loading ->{}
-                is NetworkResponse.Success ->{}
+                is NetworkResponse.Success ->{
+                    response.data?.let { data->
+                        viewModel.saveData(data.username.toString(), data.hash.toString())
+                    }
+                }
                 is NetworkResponse.Error ->{
                     binding.root.makeSnackBar(response.message.toString())
                 }
