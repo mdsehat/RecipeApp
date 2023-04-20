@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.recipe.R
 import com.example.recipe.data.model.register.BodyRegister
@@ -81,7 +82,7 @@ class RegisterFragment : Fragment() {
                 }
 
             }
-            //
+            //Load response api
             loadCallRegister()
         }
     }
@@ -93,6 +94,10 @@ class RegisterFragment : Fragment() {
                 is NetworkResponse.Success ->{
                     response.data?.let { data->
                         viewModel.saveData(data.username.toString(), data.hash.toString())
+                        findNavController().apply {
+                            popBackStack(R.id.registerFragment, true)
+                            navigate(R.id.actionToRecipe)
+                        }
                     }
                 }
                 is NetworkResponse.Error ->{
