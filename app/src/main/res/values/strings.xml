@@ -10,4 +10,11 @@
     <string name="emailNotValid">Emial is not valid.</string>
     <string name="checkConnection">please check your connection.</string>
     <string name="version">Version</string>
+    <string name="recipe">Recipe</string>
+    <string name="search">Search</string>
+    <string name="lucky">Lucky</string>
+    <string name="favorite">Favorite</string>
+    <string name="headerQuestion">What do you want to eat today?</string>
+    <string name="recent_recipes">Recent recipes</string>
+    <string name="hello">Hello!</string>
 </resources>

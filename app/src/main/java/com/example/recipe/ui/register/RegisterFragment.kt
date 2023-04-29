@@ -12,15 +12,13 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.recipe.R
 import com.example.recipe.data.model.register.BodyRegister
-import com.example.recipe.databinding.ActivityMainBinding
 import com.example.recipe.databinding.FragmentRegisterBinding
-import com.example.recipe.utils.API_KEY
+import com.example.recipe.utils.API_KEY_NUMBER
 import com.example.recipe.utils.NetworkChecker
 import com.example.recipe.utils.NetworkResponse
 import com.example.recipe.utils.makeSnackBar
 import com.example.recipe.viewmodel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 @AndroidEntryPoint
 class RegisterFragment : Fragment() {
@@ -73,7 +71,7 @@ class RegisterFragment : Fragment() {
                     networkChecker.checkNetworkAvailability().collect{ state->
                         if (state){
                             //Call api
-                            viewModel.callRegister(API_KEY, body)
+                            viewModel.callRegister(API_KEY_NUMBER, body)
                         }else{
                             root.makeSnackBar(getString(R.string.checkConnection))
                         }
