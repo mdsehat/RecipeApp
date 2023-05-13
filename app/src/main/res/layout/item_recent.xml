@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/_10mdp"
+    android:layout_marginTop="@dimen/_5mdp"
+    android:layout_marginBottom="@dimen/_5mdp"
+    android:background="@drawable/bg_rounded_price"
+    android:elevation="@dimen/_3mdp">
+
+    <!--Card img-->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardImgRecent"
+        android:layout_width="@dimen/_100mdp"
+        android:layout_height="@dimen/_100mdp"
+        android:layout_margin="@dimen/_8mdp"
+        android:elevation="0dp"
+        app:cardCornerRadius="@dimen/_10mdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--Img-->
+        <ImageView
+            android:id="@+id/imgRecent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+        <!--Shadow-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.8"
+            android:background="@drawable/shadow_popular_item" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <!--Name-->
+    <TextView
+        android:id="@+id/nameRecent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_8mdp"
+        android:ellipsize="end"
+        app:fontPath="fonts/atlas_bold.ttf"
+        android:gravity="center_vertical"
+        android:maxLines="2"
+        android:textColor="@color/jacarta"
+        android:textSize="@dimen/_10mdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/descRecent"
+        app:layout_constraintStart_toEndOf="@id/cardImgRecent"
+        app:layout_constraintTop_toTopOf="@id/cardImgRecent" />
+
+    <!--Desc-->
+    <TextView
+        android:id="@+id/descRecent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="2"
+        android:textColor="@color/jacarta"
+        android:textSize="@dimen/_10mdp"
+        app:layout_constraintBottom_toTopOf="@id/infoLay"
+        app:layout_constraintEnd_toEndOf="@id/nameRecent"
+        app:layout_constraintStart_toStartOf="@id/nameRecent"
+        app:layout_constraintTop_toBottomOf="@id/nameRecent" />
+
+    <!--Info-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/infoLay"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/cardImgRecent"
+        app:layout_constraintEnd_toEndOf="@id/descRecent"
+        app:layout_constraintStart_toStartOf="@id/descRecent"
+        app:layout_constraintTop_toBottomOf="@id/descRecent">
+        <!--Like-->
+        <TextView
+            android:id="@+id/likeRecent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/_3mdp"
+            android:gravity="center"
+            android:textColor="@color/cyanBlueAzure"
+            android:textSize="@dimen/_9font_mdp"
+            app:drawableTint="@color/cyanBlueAzure"
+            app:drawableTopCompat="@drawable/ic_thumbs_up"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/timeRecent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="250" />
+
+        <!--Time-->
+        <TextView
+            android:id="@+id/timeRecent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/_3mdp"
+            android:gravity="center"
+            android:textColor="@color/dolphinGray"
+            android:textSize="@dimen/_9font_mdp"
+            app:drawableTint="@color/dolphinGray"
+            app:drawableTopCompat="@drawable/ic_round_access_time_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/veganRecent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/likeRecent" />
+
+        <!--Vegan-->
+        <TextView
+            android:id="@+id/veganRecent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/_3mdp"
+            android:gravity="center"
+            android:textColor="@color/dolphinGray"
+            android:textSize="@dimen/_9font_mdp"
+            android:text="@string/vegan"
+            app:drawableTint="@color/dolphinGray"
+            app:drawableTopCompat="@drawable/ic_leaf"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/healthRecent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/timeRecent" />
+
+        <!--Health-->
+        <TextView
+            android:id="@+id/healthRecent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/_3mdp"
+            android:gravity="center"
+            android:textColor="@color/dolphinGray"
+            android:textSize="@dimen/_9font_mdp"
+            app:drawableTint="@color/dolphinGray"
+            app:drawableTopCompat="@drawable/ic_shield_heart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/veganRecent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

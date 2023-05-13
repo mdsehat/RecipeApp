@@ -88,8 +88,13 @@ class RegisterFragment : Fragment() {
     private fun loadCallRegister(){
         viewModel.registerLiveData.observe(viewLifecycleOwner){ response->
             when(response){
-                is NetworkResponse.Loading ->{}
+                is NetworkResponse.Loading ->{
+                    binding.progrss.visibility = View.VISIBLE
+                    binding.btnRegister.visibility = View.INVISIBLE
+                }
                 is NetworkResponse.Success ->{
+                    binding.progrss.visibility = View.INVISIBLE
+                    binding.btnRegister.visibility = View.VISIBLE
                     response.data?.let { data->
                         viewModel.saveData(data.username.toString(), data.hash.toString())
                         findNavController().apply {
@@ -99,6 +104,8 @@ class RegisterFragment : Fragment() {
                     }
                 }
                 is NetworkResponse.Error ->{
+                    binding.progrss.visibility = View.INVISIBLE
+                    binding.btnRegister.visibility = View.VISIBLE
                     binding.root.makeSnackBar(response.message.toString())
                 }
             }

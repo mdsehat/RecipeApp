@@ -101,7 +101,19 @@
         android:layout_height="@dimen/_45mdp"
         android:layout_margin="@dimen/_15mdp"
         style="@style/ButtonDarkGreen"
+        android:visibility="invisible"
         android:text="@string/register"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <!--Progress-->
+    <ProgressBar
+        android:id="@+id/progrss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/btnRegister"
+        app:layout_constraintBottom_toBottomOf="@id/btnRegister"
+        app:layout_constraintStart_toStartOf="@id/btnRegister"
+        app:layout_constraintEnd_toEndOf="@id/btnRegister"
+        android:indeterminateTint="@color/darkGreen"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
