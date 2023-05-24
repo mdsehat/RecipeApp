@@ -1,8 +1,8 @@
 package com.example.recipe.ui.recipe
 
 import android.annotation.SuppressLint
-import android.net.NetworkRequest
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -69,20 +69,43 @@ class RecipeFragment : Fragment() {
                     userName.text = "${getString(R.string.hello)} ,${it.username} ${showUnicode()}"
                 }
             }
-            //Call api popular foods
-            lifecycleScope.launchWhenStarted {
-                networkChecker.checkNetworkAvailability().collect {
-                    if (it) {
-                        viewModel.apply { callPopular(popularQueries()) }
-                        viewModel.apply { callRecent(recentQueries()) }
-                    } else {
-                        root.makeSnackBar("No Internet")
-                    }
-                }
-            }
+            callData()
             loadCallPopular()
             loadCallRecent()
         }
+    }
+
+    private fun callData() {
+        //Init rv
+        setPopularRecycler()
+        setRecentAdapter()
+        //CallData
+        lifecycleScope.launchWhenCreated {
+            networkChecker.checkNetworkAvailability().collect { online ->
+                if (online) {
+                    //API
+                    viewModel.apply { callPopular(popularQueries()) }
+                    viewModel.apply { callRecent(recentQueries()) }
+                } else {
+                    //Database
+                    viewModel.readPopularFromDb.observe(viewLifecycleOwner) { database ->
+                        if (database.isNotEmpty()) {
+                            database[0].response.results?.let { data ->
+                                fillAdapterPopular(data)
+                            }
+                        }
+                    }
+                    viewModel.readRecentFromDb.observe(viewLifecycleOwner) { database ->
+                        if (database.isNotEmpty() && database.size > 1) {
+                            database[1].response.results?.let { data ->
+                                recentAdapter.setData(data)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     private fun loadCallPopular() {
@@ -95,8 +118,7 @@ class RecipeFragment : Fragment() {
                     is NetworkResponse.Success -> {
                         rvPopular.hideShimmer()
                         response.data?.results?.let { data ->
-                            popularAdapter.setData(data)
-                            setPopularRecycler(data)
+                            fillAdapterPopular(data)
                         }
                     }
                     is NetworkResponse.Error -> {
@@ -108,19 +130,27 @@ class RecipeFragment : Fragment() {
         }
     }
 
-    private fun setPopularRecycler(list: List<ResponseRecipe.Result>) {
+    private fun fillAdapterPopular(data: List<ResponseRecipe.Result>) {
+        popularAdapter.setData(data)
+        setAnimForRv(data)
+    }
+
+    private fun setPopularRecycler() {
         //InitRv
         binding.rvPopular
             .setupRv(
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false),
                 popularAdapter
             )
+    }
+
+    private fun setAnimForRv(list: List<ResponseRecipe.Result>) {
         //Snap
         val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(binding.rvPopular)
         //AutoScroll
         lifecycleScope.launchWhenStarted {
-            repeat(REPEAT_TIME){
+            repeat(REPEAT_TIME) {
                 delay(DELAY_TIME)
                 if (indexAutoScroll < list.size) indexAutoScroll++
                 else indexAutoScroll = 0
@@ -128,24 +158,23 @@ class RecipeFragment : Fragment() {
             }
 
         }
-
     }
 
     private fun loadCallRecent() {
-        viewModel.recentLiveData.observe(viewLifecycleOwner){response->
+        viewModel.recentLiveData.observe(viewLifecycleOwner) { response ->
             binding.apply {
-                when(response){
-                    is NetworkResponse.Loading->{
+                when (response) {
+                    is NetworkResponse.Loading -> {
                         rvRecent.showShimmer()
                     }
-                    is NetworkResponse.Success->{
+                    is NetworkResponse.Success -> {
                         rvRecent.hideShimmer()
                         response.data?.let {
                             recentAdapter.setData(it.results!!)
                             setRecentAdapter()
                         }
                     }
-                    is NetworkResponse.Error->{
+                    is NetworkResponse.Error -> {
                         rvRecent.showShimmer()
                         root.makeSnackBar(response.message!!)
                     }
@@ -155,7 +184,7 @@ class RecipeFragment : Fragment() {
         }
     }
 
-    private fun setRecentAdapter(){
+    private fun setRecentAdapter() {
         binding.rvRecent.setupRv(LinearLayoutManager(requireContext()), recentAdapter)
     }
 

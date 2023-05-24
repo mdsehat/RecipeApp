@@ -3,11 +3,14 @@ package com.example.recipe.viewmodel
 import android.net.NetworkRequest
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.recipe.data.database.RecipeEntity
 import com.example.recipe.data.model.recipe.ResponseRecipe
 import com.example.recipe.data.repository.RecipeRepository
 import com.example.recipe.utils.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
@@ -31,6 +34,21 @@ class RecipeViewModel @Inject constructor(private val repository: RecipeReposito
         popularLiveData.value = NetworkResponse.Loading()
         val response = repository.remote.getRecipe(map)
         popularLiveData.value = NetworkErrorCode(response).ErrorCode()
+        //Cache
+        val cache = popularLiveData.value!!.data
+        if (cache != null) cachingPopular(cache)
+    }
+
+    //Local
+    private fun savePopular(entity: RecipeEntity) = viewModelScope.launch(IO) {
+        repository.local.saveItem(entity)
+    }
+
+    val readPopularFromDb = repository.local.loadItems().asLiveData()
+
+    private fun cachingPopular(response: ResponseRecipe){
+        val entity = RecipeEntity(0, response)
+        savePopular(entity)
     }
 
     //--Recent--//
@@ -51,6 +69,9 @@ class RecipeViewModel @Inject constructor(private val repository: RecipeReposito
         recentLiveData.value = NetworkResponse.Loading()
         val response = repository.remote.getRecipe(map)
         recentLiveData.value = handlingResponseRecent(response)
+        //Cache
+        val cache = recentLiveData.value!!.data
+        if (cache != null) cachingRecent(cache)
     }
     private fun handlingResponseRecent(response: Response<ResponseRecipe>) : NetworkResponse<ResponseRecipe>{
         return when{
@@ -62,5 +83,17 @@ class RecipeViewModel @Inject constructor(private val repository: RecipeReposito
             response.isSuccessful -> NetworkResponse.Success(response.body()!!)
             else -> NetworkResponse.Error(response.message())
         }
+    }
+
+    //Local
+    private fun saveRecent(entity: RecipeEntity) = viewModelScope.launch(IO) {
+        repository.local.saveItem(entity)
+    }
+
+    val readRecentFromDb = repository.local.loadItems().asLiveData()
+
+    private fun cachingRecent(response: ResponseRecipe){
+        val entity = RecipeEntity(1, response)
+        savePopular(entity)
     }
 }

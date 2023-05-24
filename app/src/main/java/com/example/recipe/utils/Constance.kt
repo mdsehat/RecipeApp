@@ -28,3 +28,7 @@ const val REPEAT_TIME = 100
 const val DELAY_TIME = 5000L
 const val MAX_COUNT = 50
 const val MIN_COUNT = 10
+
+//Database
+const val RECIPE_TABLE = "recipe_table"
+const val DATABASE_NAME = "database_name"

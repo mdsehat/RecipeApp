@@ -9,7 +9,7 @@ data class ResponseRecipe(
     @SerializedName("offset")
     val offset: Int?, // 0
     @SerializedName("results")
-    val results: List<Result>?,
+    val results: MutableList<Result>?,
     @SerializedName("totalResults")
     val totalResults: Int? // 5221
 ) {
