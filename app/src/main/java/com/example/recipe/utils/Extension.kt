@@ -35,3 +35,16 @@ fun <T> LiveData<T>.singleObserve(owner: LifecycleOwner, observe: Observer<T>){
 
     })
 }
+
+fun hourToMin(time: Int) : String{
+    var hour = 0
+    var minute = 0
+
+    if (time > 60){
+        hour = time/60
+        minute = time % 60
+        return "${hour}h ${minute}min"
+    }else{
+        return "${time}min"
+    }
+}

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginHorizontal="@dimen/_5mdp"
+    android:layout_marginBottom="@dimen/_3mdp"
+    android:background="@drawable/bg_rounded_light_stroke"
+    android:padding="@dimen/_5mdp">
+    <!--Number-->
+    <TextView
+        android:layout_width="@dimen/_25mdp"
+        android:layout_height="@dimen/_25mdp"
+        android:background="@drawable/bg_rounded_green"
+        android:gravity="center"
+        app:fontPath="fonts/atlas_bold.ttf"
+        android:layout_margin="@dimen/_5mdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/_5mdp"
+        android:textSize="@dimen/_9font_mdp"
+        tools:text="1"
+        android:textColor="@color/white"
+        android:id="@+id/tvNumberStep"/>
+
+    <!--Time-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/tvNumberStep"
+        app:layout_constraintTop_toBottomOf="@id/tvNumberStep"
+        android:layout_marginTop="@dimen/_5mdp"
+        android:textSize="@dimen/_8font_mdp"
+        android:gravity="center"
+        tools:text="2"
+        android:textColor="@color/black"
+        android:id="@+id/tvTimeStep"/>
+
+    <!--Desc-->
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/tvNumberStep"
+        app:layout_constraintStart_toEndOf="@id/tvNumberStep"
+        android:layout_marginEnd="@dimen/_5mdp"
+        android:lineSpacingExtra="@dimen/_5mdp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_9font_mdp"
+        app:fontPath="fonts/atlas_bold.ttf"
+        android:id="@+id/tvDescStep"
+        android:layout_marginStart="@dimen/_10mdp"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

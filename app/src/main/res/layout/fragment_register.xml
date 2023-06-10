@@ -6,114 +6,128 @@
     android:layout_height="match_parent"
     tools:context=".ui.register.RegisterFragment">
 
-    <!--Scroll-->
-    <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/btnRegister"
-        app:layout_constraintEnd_toEndOf="@id/btnRegister"
-        app:layout_constraintStart_toStartOf="@id/btnRegister"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/_20mdp"
-            android:orientation="vertical">
-            <!--Img-->
-            <ImageView
-                android:id="@+id/registerLogo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true" />
-            <!--First name-->
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/TextInputDarkGreen"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:startIconDrawable="@drawable/ic_round_person_24"
-                app:startIconTint="@color/darkGreen"
-                android:hint="@string/first_name"
-                android:id="@+id/FirstNameLay">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/firstNameEdt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-            <!--Last name-->
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/TextInputDarkGreen"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:startIconDrawable="@drawable/ic_round_person_24"
-                app:startIconTint="@color/darkGreen"
-                android:hint="@string/last_name"
-                android:id="@+id/LastNameLay">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/LastNameEdt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-            <!--Username-->
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/TextInputDarkGreen"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:startIconDrawable="@drawable/ic_round_person_24"
-                app:startIconTint="@color/darkGreen"
-                android:hint="@string/username"
-                android:id="@+id/UserNameLay">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/UserNameEdt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-            <!--Email-->
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/TextInputDarkGreen"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:startIconDrawable="@drawable/ic_round_email_24"
-                app:startIconTint="@color/darkGreen"
-                android:hint="@string/email"
-                android:id="@+id/EmailLay">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/EmailEdt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-    </ScrollView>
-
-    <!--Btn register-->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnRegister"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_45mdp"
-        android:layout_margin="@dimen/_15mdp"
-        style="@style/ButtonDarkGreen"
-        android:text="@string/register"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:layout_height="match_parent"
+        android:id="@+id/registerContent">
+        <!--Scroll-->
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/btnRegister"
+            app:layout_constraintEnd_toEndOf="@id/btnRegister"
+            app:layout_constraintStart_toStartOf="@id/btnRegister"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <!--Progress-->
-    <ProgressBar
-        android:id="@+id/progrss"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/_20mdp"
+                android:orientation="vertical">
+                <!--Img-->
+                <ImageView
+                    android:id="@+id/registerLogo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true" />
+                <!--First name-->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputDarkGreen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:startIconDrawable="@drawable/ic_round_person_24"
+                    app:startIconTint="@color/darkGreen"
+                    android:hint="@string/first_name"
+                    android:id="@+id/FirstNameLay">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/firstNameEdt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <!--Last name-->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputDarkGreen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:startIconDrawable="@drawable/ic_round_person_24"
+                    app:startIconTint="@color/darkGreen"
+                    android:hint="@string/last_name"
+                    android:id="@+id/LastNameLay">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/LastNameEdt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <!--Username-->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputDarkGreen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:startIconDrawable="@drawable/ic_round_person_24"
+                    app:startIconTint="@color/darkGreen"
+                    android:hint="@string/username"
+                    android:id="@+id/UserNameLay">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/UserNameEdt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <!--Email-->
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/TextInputDarkGreen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:startIconDrawable="@drawable/ic_round_email_24"
+                    app:startIconTint="@color/darkGreen"
+                    android:hint="@string/email"
+                    android:id="@+id/EmailLay">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/EmailEdt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+        </ScrollView>
+
+        <!--Btn register-->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45mdp"
+            android:layout_margin="@dimen/_15mdp"
+            style="@style/ButtonDarkGreen"
+            android:text="@string/register"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <!--Progress-->
+        <ProgressBar
+            android:id="@+id/progrss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintTop_toTopOf="@id/btnRegister"
+            app:layout_constraintBottom_toBottomOf="@id/btnRegister"
+            app:layout_constraintStart_toStartOf="@id/btnRegister"
+            app:layout_constraintEnd_toEndOf="@id/btnRegister"
+            android:theme="@style/darkProgress"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--Connection-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:visibility="invisible"
-        app:layout_constraintTop_toTopOf="@id/btnRegister"
-        app:layout_constraintBottom_toBottomOf="@id/btnRegister"
-        app:layout_constraintStart_toStartOf="@id/btnRegister"
-        app:layout_constraintEnd_toEndOf="@id/btnRegister"
-        android:indeterminateTint="@color/darkGreen"/>
+        android:id="@+id/registerConnectionLay">
 
+        <include layout="@layout/connection_layout"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

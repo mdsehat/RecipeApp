@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.detail.DetailFragment">
+    <!--Content-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/contentLay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible">
+
+        <!--Cover-->
+        <ImageView
+            android:id="@+id/coverImg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_250mdp"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--Shadow-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:alpha="0.5"
+            android:background="@drawable/shadow_popular_item"
+            android:rotation="180"
+            app:layout_constraintBottom_toBottomOf="@id/coverImg"
+            app:layout_constraintTop_toTopOf="@id/coverImg" />
+        <!--IconBack-->
+        <ImageView
+            android:id="@+id/iconBack"
+            android:layout_width="@dimen/_35mdp"
+            android:layout_height="@dimen/_35mdp"
+            android:layout_margin="@dimen/_16mdp"
+            android:background="@drawable/bg_rounded_white"
+            android:padding="@dimen/_9mdp"
+            android:src="@drawable/ic_arrow_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--IconFav-->
+        <ImageView
+            android:id="@+id/iconFav"
+            android:layout_width="@dimen/_35mdp"
+            android:layout_height="@dimen/_35mdp"
+            android:layout_margin="@dimen/_16mdp"
+            android:background="@drawable/bg_rounded_white"
+            android:padding="@dimen/_7mdp"
+            android:src="@drawable/ic_heart_circle_plus"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/persianGreen" />
+        <!--IconSource-->
+        <ImageView
+            android:id="@+id/iconSource"
+            android:layout_width="@dimen/_35mdp"
+            android:layout_height="@dimen/_35mdp"
+            android:layout_margin="@dimen/_16mdp"
+            android:background="@drawable/bg_rounded_white"
+            android:padding="@dimen/_8mdp"
+            android:src="@drawable/ic_book_sparkles"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iconFav"
+            app:tint="@color/jacarta" />
+        <!--Scroll-->
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/mines22mdp"
+            android:background="@drawable/bg_top_rounded_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/coverImg">
+            <!--Content-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!--Time-->
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15mdp"
+                    android:layout_marginEnd="@dimen/_20mdp"
+                    android:drawablePadding="@dimen/_3mdp"
+                    android:textColor="@color/jordyBlue"
+                    android:textSize="@dimen/_12font_mdp"
+                    app:drawableStartCompat="@drawable/ic_clock"
+                    app:drawableTint="@color/jordyBlue"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="45min" />
+
+                <!--Name-->
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20mdp"
+                    android:textColor="@color/dark_gunmetal"
+                    android:textSize="@dimen/_14font_mdp"
+                    app:fontPath="fonts/atlas_bold.ttf"
+                    app:layout_constraintEnd_toStartOf="@id/tvTime"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvTime"
+                    tools:text="This is for test" />
+
+                <!--Desc-->
+                <kr.co.prnd.readmore.ReadMoreTextView
+                    android:id="@+id/desc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10mdp"
+                    android:autoLink="none"
+                    android:lineSpacingExtra="@dimen/_5mdp"
+                    android:linksClickable="false"
+                    android:textColor="@color/dolphinGray"
+                    android:textColorLink="@color/dolphinGray"
+                    android:textSize="@dimen/_10font_mdp"
+                    app:layout_constraintEnd_toEndOf="@id/tvTime"
+                    app:layout_constraintStart_toStartOf="@id/tvName"
+                    app:layout_constraintTop_toBottomOf="@id/tvName"
+                    app:readMoreColor="@color/tart_orange"
+                    app:readMoreMaxLine="4"
+                    app:readMoreText="@string/showMore" />
+
+                <!--Line-->
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="@dimen/_5mdp"
+                    android:layout_marginTop="@dimen/_5mdp"
+                    android:alpha="0.1"
+                    android:backgroundTint="@color/gray"
+                    app:layout_constraintEnd_toEndOf="@id/tvTime"
+                    app:layout_constraintStart_toStartOf="@id/tvName"
+                    app:layout_constraintTop_toBottomOf="@id/desc" />
+
+                <!--Info-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_10mdp"
+                    app:layout_constraintTop_toBottomOf="@id/line">
+
+                    <!--Cheap-->
+                    <TextView
+                        android:id="@+id/iconCheap"
+                        style="@style/iconDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/cheap"
+                        android:textSize="@dimen/_9font_mdp"
+                        app:drawableTopCompat="@drawable/ic_sack_dollar"
+                        app:layout_constraintEnd_toStartOf="@+id/iconDairy"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <!--Popular-->
+                    <TextView
+                        android:id="@+id/iconPopular"
+                        style="@style/iconDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/popular"
+                        android:textSize="@dimen/_9font_mdp"
+                        app:drawableTopCompat="@drawable/ic_fire"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/iconVegan"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <!--Vegan-->
+                    <TextView
+                        android:id="@+id/iconVegan"
+                        style="@style/iconDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/vegan"
+                        android:textSize="@dimen/_9font_mdp"
+                        app:drawableTopCompat="@drawable/ic_leaf"
+                        app:layout_constraintEnd_toStartOf="@+id/iconPopular"
+                        app:layout_constraintStart_toEndOf="@+id/iconDairy"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <!--Dairy-->
+                    <TextView
+                        android:id="@+id/iconDairy"
+                        style="@style/iconDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="@string/dairy"
+                        android:textSize="@dimen/_9font_mdp"
+                        app:drawableTopCompat="@drawable/ic_glass"
+                        app:layout_constraintEnd_toStartOf="@+id/iconVegan"
+                        app:layout_constraintStart_toEndOf="@+id/iconCheap"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <!--Like-->
+                    <TextView
+                        android:id="@+id/iconLike"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_12mdp"
+                        android:drawablePadding="@dimen/_1mdp"
+                        android:gravity="center_horizontal"
+                        android:textColor="@color/tart_orange"
+                        android:textSize="@dimen/_9font_mdp"
+                        app:drawableTint="@color/tart_orange"
+                        app:drawableTopCompat="@drawable/ic_heart"
+                        app:layout_constraintEnd_toStartOf="@+id/iconPrice"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/iconCheap" />
+
+                    <!--Price-->
+                    <TextView
+                        android:id="@+id/iconPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_12mdp"
+                        android:drawablePadding="@dimen/_1mdp"
+                        android:gravity="center_horizontal"
+                        android:textColor="@color/chineseYellow"
+                        android:textSize="@dimen/_9font_mdp"
+                        app:drawableTint="@color/chineseYellow"
+                        app:drawableTopCompat="@drawable/ic_coins"
+                        app:layout_constraintEnd_toStartOf="@+id/iconHealthy"
+                        app:layout_constraintStart_toEndOf="@+id/iconLike"
+                        app:layout_constraintTop_toBottomOf="@id/iconCheap" />
+
+                    <!--Healthy-->
+                    <TextView
+                        android:id="@+id/iconHealthy"
+                        style="@style/iconDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_12mdp"
+                        android:gravity="center_horizontal"
+                        app:drawableTopCompat="@drawable/ic_shield_heart"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/iconPrice"
+                        app:layout_constraintTop_toBottomOf="@id/iconCheap" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--Line2-->
+                <View
+                    android:id="@+id/line2"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="@dimen/_5mdp"
+                    android:alpha="0.1"
+                    android:backgroundTint="@color/gray"
+                    app:layout_constraintEnd_toEndOf="@id/tvTime"
+                    app:layout_constraintStart_toStartOf="@id/tvName"
+                    app:layout_constraintTop_toBottomOf="@id/info" />
+
+                <!--Instruction-->
+                <TextView
+                    android:id="@+id/instructionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5mdp"
+                    android:drawablePadding="@dimen/_5mdp"
+                    android:gravity="center_vertical"
+                    android:text="@string/instructions"
+                    android:textColor="@color/jacarta"
+                    android:textSize="@dimen/_10font_mdp"
+                    app:drawableStartCompat="@drawable/ic_fondue_pot"
+                    app:fontPath="fonts/atlas_bold.ttf"
+                    app:layout_constraintStart_toStartOf="@id/tvName"
+                    app:layout_constraintTop_toBottomOf="@id/line2" />
+
+                <!--Count-->
+                <TextView
+                    android:id="@+id/instructionCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_10font_mdp"
+                    app:layout_constraintEnd_toEndOf="@id/tvTime"
+                    app:layout_constraintTop_toTopOf="@id/instructionTitle"
+                    tools:text="20 Item" />
+
+                <!--Desc-->
+                <TextView
+                    android:id="@+id/instructionDesc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5mdp"
+                    android:lineSpacingExtra="@dimen/_5mdp"
+                    android:textColor="@color/dolphinGray"
+                    android:textSize="@dimen/_9font_mdp"
+                    app:layout_constraintEnd_toEndOf="@id/instructionCount"
+                    app:layout_constraintStart_toStartOf="@id/instructionTitle"
+                    app:layout_constraintTop_toBottomOf="@id/instructionTitle" />
+
+                <!--List-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/instructionList"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5mdp"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/instructionTitle"
+                    app:layout_constraintTop_toBottomOf="@id/instructionDesc" />
+
+                <!--Line3-->
+                <View
+                    android:id="@+id/line3"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/_10mdp"
+                    android:alpha="0.1"
+                    android:backgroundTint="@color/gray"
+                    app:layout_constraintEnd_toEndOf="@id/tvTime"
+                    app:layout_constraintStart_toStartOf="@id/tvName"
+                    app:layout_constraintTop_toBottomOf="@id/instructionList" />
+
+                <!--Steps-->
+                <TextView
+                    android:id="@+id/stepTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5mdp"
+                    android:drawablePadding="@dimen/_5mdp"
+                    android:gravity="center_vertical"
+                    android:text="@string/step"
+                    android:textColor="@color/jacarta"
+                    android:textSize="@dimen/_10font_mdp"
+                    app:drawableStartCompat="@drawable/ic_bowl_chopsticks_noodles"
+                    app:fontPath="fonts/atlas_bold.ttf"
+                    app:layout_constraintStart_toStartOf="@id/tvName"
+                    app:layout_constraintTop_toBottomOf="@id/line3" />
+
+                <!--List-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/stepsList"
+                    android:layout_width="0dp"
+                    tools:listitem="@layout/item_step"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10mdp"
+                    android:clipToPadding="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/stepTitle"
+                    app:layout_constraintTop_toBottomOf="@id/stepTitle" />
+
+                <!--Show more-->
+                <TextView
+                    android:id="@+id/btnShowMore"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/bg_shadow_white"
+                    android:gravity="bottom|center_horizontal"
+                    android:paddingBottom="@dimen/_5mdp"
+                    android:text="@string/showMore"
+                    android:textColor="@color/tart_orange"
+                    android:textSize="@dimen/_10font_mdp"
+                    android:visibility="invisible"
+                    app:fontPath="fonts/atlas_bold.ttf"
+                    app:layout_constraintBottom_toBottomOf="@id/stepsList"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <!--Line4-->
+                <View
+                    android:id="@+id/line4"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/_10mdp"
+                    android:alpha="0.1"
+                    android:backgroundTint="@color/gray"
+                    app:layout_constraintEnd_toEndOf="@id/tvTime"
+                    app:layout_constraintStart_toStartOf="@id/tvName"
+                    app:layout_constraintTop_toBottomOf="@id/stepsList" />
+
+                <!--Diets-->
+                <TextView
+                    android:id="@+id/dietTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5mdp"
+                    android:drawablePadding="@dimen/_5mdp"
+                    android:gravity="center_vertical"
+                    android:text="@string/diet"
+                    android:textColor="@color/jacarta"
+                    android:textSize="@dimen/_10font_mdp"
+                    app:drawableStartCompat="@drawable/ic_salad"
+                    app:fontPath="fonts/atlas_bold.ttf"
+                    app:layout_constraintStart_toStartOf="@id/tvName"
+                    app:layout_constraintTop_toBottomOf="@id/line4" />
+
+                <!--Chip-->
+                <HorizontalScrollView
+                    android:id="@+id/scrollDiet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:scrollbars="none"
+                    app:layout_constraintTop_toBottomOf="@id/dietTitle">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/dietGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/_10mdp"
+                        app:chipSpacing="0dp"
+                        app:singleLine="true" />
+
+                </HorizontalScrollView>
+
+                <!--Line5-->
+                <View
+                    android:id="@+id/line5"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/_10mdp"
+                    android:alpha="0.1"
+                    android:backgroundTint="@color/gray"
+                    app:layout_constraintEnd_toEndOf="@id/tvTime"
+                    app:layout_constraintStart_toStartOf="@id/tvName"
+                    app:layout_constraintTop_toBottomOf="@id/scrollDiet" />
+
+                <!--Similar-->
+                <TextView
+                    android:id="@+id/SimilarTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5mdp"
+                    android:drawablePadding="@dimen/_5mdp"
+                    android:gravity="center_vertical"
+                    android:text="@string/similarRecipe"
+                    android:textColor="@color/jacarta"
+                    android:textSize="@dimen/_10font_mdp"
+                    app:drawableStartCompat="@drawable/ic_fondue_pot"
+                    app:fontPath="fonts/atlas_bold.ttf"
+                    app:layout_constraintStart_toStartOf="@id/tvName"
+                    app:layout_constraintTop_toBottomOf="@id/line5" />
+
+                <!--List-->
+                <com.todkars.shimmer.ShimmerRecyclerView
+                    android:id="@+id/similarList"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5mdp"
+                    android:layout_marginBottom="@dimen/_20mdp"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/instructionTitle"
+                    app:layout_constraintTop_toBottomOf="@id/SimilarTitle"
+                    app:shimmer_recycler_auto_start="true"
+                    app:shimmer_recycler_layout="@layout/item_similar_shimmer"
+                    app:shimmer_recycler_item_count="1"
+                    app:shimmer_recycler_shape="linear" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!--ProgressBar-->
+    <ProgressBar
+        android:id="@+id/detailProgress"
+        android:layout_width="@dimen/_35mdp"
+        android:layout_height="@dimen/_35mdp"
+        android:theme="@style/darkProgress"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--Connection-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:id="@+id/connectionLay">
+
+        <include layout="@layout/connection_layout"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

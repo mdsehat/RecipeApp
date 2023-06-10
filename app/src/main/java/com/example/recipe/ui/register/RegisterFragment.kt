@@ -46,6 +46,7 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //InitViews
+        visibilityView(content = true, connection = false)
         binding.apply {
             //LoadImg
             registerLogo.load(R.drawable.register_logo)
@@ -73,7 +74,7 @@ class RegisterFragment : Fragment() {
                             //Call api
                             viewModel.callRegister(API_KEY_NUMBER, body)
                         }else{
-                            root.makeSnackBar(getString(R.string.checkConnection))
+                           visibilityView(content = false, connection = true)
                         }
 
                     }
@@ -110,6 +111,13 @@ class RegisterFragment : Fragment() {
                 }
             }
         }
+    }
+    private fun visibilityView(content: Boolean, connection: Boolean) {
+        if (content) binding.registerContent.visibility = View.VISIBLE
+        else binding.registerContent.visibility = View.INVISIBLE
+
+        if (connection) binding.registerConnectionLay.visibility = View.VISIBLE
+        else binding.registerConnectionLay.visibility = View.INVISIBLE
     }
     override fun onDestroy() {
         super.onDestroy()

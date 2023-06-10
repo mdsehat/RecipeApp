@@ -8,8 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.GeneratedAdapter
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.recipe.R
@@ -17,13 +18,11 @@ import com.example.recipe.adapter.PopularAdapter
 import com.example.recipe.adapter.RecentAdapter
 import com.example.recipe.data.model.recipe.ResponseRecipe
 import com.example.recipe.databinding.FragmentRecipeBinding
-import com.example.recipe.databinding.FragmentSplashBinding
 import com.example.recipe.utils.*
 import com.example.recipe.viewmodel.RecipeViewModel
 import com.example.recipe.viewmodel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -32,6 +31,8 @@ class RecipeFragment : Fragment() {
     //Binding
     private var _binding: FragmentRecipeBinding? = null
     private val binding get() = _binding!!
+
+    private val TAG = "myTag"
 
     @Inject
     lateinit var popularAdapter: PopularAdapter
@@ -45,6 +46,11 @@ class RecipeFragment : Fragment() {
     //Other
     private val viewModel: RecipeViewModel by viewModels()
     private var indexAutoScroll = 0
+    private val args: RecipeFragmentArgs by navArgs()
+    private var isExistsCache = false
+
+    //Snap
+    private val snapHelper = LinearSnapHelper()
 
 
     private val registerViewModel: RegisterViewModel by viewModels()
@@ -69,43 +75,40 @@ class RecipeFragment : Fragment() {
                     userName.text = "${getString(R.string.hello)} ,${it.username} ${showUnicode()}"
                 }
             }
-            callData()
+            //Call data
+            callPopular()
+            callRecent()
+            //Load data
             loadCallPopular()
             loadCallRecent()
         }
     }
 
-    private fun callData() {
-        //Init rv
+
+    private fun callPopular() {
         setPopularRecycler()
-        setRecentAdapter()
-        //CallData
-        lifecycleScope.launchWhenCreated {
-            networkChecker.checkNetworkAvailability().collect { online ->
-                if (online) {
-                    //API
-                    viewModel.apply { callPopular(popularQueries()) }
-                    viewModel.apply { callRecent(recentQueries()) }
-                } else {
-                    //Database
-                    viewModel.readPopularFromDb.observe(viewLifecycleOwner) { database ->
-                        if (database.isNotEmpty()) {
-                            database[0].response.results?.let { data ->
-                                fillAdapterPopular(data)
-                            }
-                        }
-                    }
-                    viewModel.readRecentFromDb.observe(viewLifecycleOwner) { database ->
-                        if (database.isNotEmpty() && database.size > 1) {
-                            database[1].response.results?.let { data ->
-                                recentAdapter.setData(data)
-                            }
-                        }
-                    }
+        viewModel.readPopularFromDb.singleObserve(viewLifecycleOwner) { database ->
+            if (database.isNotEmpty()) {
+                database[0].response.results?.let { data ->
+                    fillAdapterPopular(data)
                 }
+            } else {
+                viewModel.apply { callPopular(popularQueries()) }
             }
         }
+    }
 
+    private fun callRecent() {
+        setRecentRecycler()
+        viewModel.readRecentFromDb.singleObserve(viewLifecycleOwner) { database ->
+            if (database.isNotEmpty() && database.size > 1 && args.isUpdated.not()) {
+                database[1].response.results?.let { data ->
+                    recentAdapter.setData(data)
+                }
+            } else {
+                viewModel.apply { callRecent(recentQueries()) }
+            }
+        }
     }
 
     private fun loadCallPopular() {
@@ -142,11 +145,14 @@ class RecipeFragment : Fragment() {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false),
                 popularAdapter
             )
+        //Set on click
+        popularAdapter.setOnItemClick {
+            val direction = RecipeFragmentDirections.actionToDetail(it)
+            findNavController().navigate(direction)
+        }
     }
 
     private fun setAnimForRv(list: List<ResponseRecipe.Result>) {
-        //Snap
-        val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(binding.rvPopular)
         //AutoScroll
         lifecycleScope.launchWhenStarted {
@@ -161,7 +167,9 @@ class RecipeFragment : Fragment() {
     }
 
     private fun loadCallRecent() {
+
         viewModel.recentLiveData.observe(viewLifecycleOwner) { response ->
+            Log.i(TAG, "loadCallRecent: ")
             binding.apply {
                 when (response) {
                     is NetworkResponse.Loading -> {
@@ -171,7 +179,8 @@ class RecipeFragment : Fragment() {
                         rvRecent.hideShimmer()
                         response.data?.let {
                             recentAdapter.setData(it.results!!)
-                            setRecentAdapter()
+
+                            setRecentRecycler()
                         }
                     }
                     is NetworkResponse.Error -> {
@@ -184,16 +193,30 @@ class RecipeFragment : Fragment() {
         }
     }
 
-    private fun setRecentAdapter() {
+    private fun setRecentRecycler() {
+        //InitRv
         binding.rvRecent.setupRv(LinearLayoutManager(requireContext()), recentAdapter)
+        //Set on click
+        recentAdapter.setOnItemClick {
+            val direction = RecipeFragmentDirections.actionToDetail(it)
+            findNavController().navigate(direction)
+        }
     }
 
     private fun showUnicode(): String {
         return String(Character.toChars(0x1f44b))
     }
 
+    private fun checkExistsCache() {
+        viewModel.existsList()
+        viewModel.existsListLiveData.observe(viewLifecycleOwner) {
+            isExistsCache = it
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
+
 }

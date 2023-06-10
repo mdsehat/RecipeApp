@@ -3,6 +3,7 @@ package com.example.recipe.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -11,10 +12,7 @@ import com.example.recipe.R
 import com.example.recipe.data.model.recipe.ResponseRecipe.Result
 import com.example.recipe.databinding.ItemPopularBinding
 import com.example.recipe.databinding.ItemRecentBinding
-import com.example.recipe.utils.BaseDiffUtils
-import com.example.recipe.utils.NEW_SIZE_IMAGE
-import com.example.recipe.utils.OLD_SIZE_IMAGE
-import com.example.recipe.utils.setCustomColor
+import com.example.recipe.utils.*
 import javax.inject.Inject
 
 class RecentAdapter @Inject constructor():RecyclerView.Adapter<RecentAdapter.Holder>() {
@@ -44,20 +42,11 @@ class RecentAdapter @Inject constructor():RecyclerView.Adapter<RecentAdapter.Hol
             binding.apply {
                 //FillItem
                 nameRecent.text = item.title
-                descRecent.text = item.summary
+                val summary = HtmlCompat.fromHtml(item.summary!!, HtmlCompat.FROM_HTML_MODE_COMPACT)
+                descRecent.text = summary
                 likeRecent.text = item.aggregateLikes.toString()
                 //time
-                val time = item.readyInMinutes!!
-                var hour = 0
-                var minute = 0
-
-                if (time > 60){
-                    hour = time/60
-                    minute = time % 60
-                    timeRecent.text = "${hour}h ${minute}min"
-                }else{
-                    timeRecent.text = "${time}min"
-                }
+                timeRecent.text = hourToMin(item.readyInMinutes!!)
                 //Vegan
                 if (item.vegan!!){
                     veganRecent.setCustomColor(R.color.caribbean_green)

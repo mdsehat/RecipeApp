@@ -26,7 +26,12 @@
         android:id="@+id/recipeFragment"
         android:name="com.example.recipe.ui.recipe.RecipeFragment"
         android:label="fragment_recipe"
-        tools:layout="@layout/fragment_recipe" />
+        tools:layout="@layout/fragment_recipe" >
+        <argument
+            android:name="isUpdated"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
     <action
         android:id="@+id/actionToRecipe"
         app:destination="@id/recipeFragment"
@@ -49,4 +54,62 @@
         android:name="com.example.recipe.ui.search.SearchFragment"
         android:label="SearchFragment"
         tools:layout="@layout/fragment_search"/>
+    <action
+        android:id="@+id/actionToMenu"
+        app:destination="@id/menuFragment"/>
+    <dialog
+        android:id="@+id/menuFragment"
+        android:name="com.example.recipe.ui.menu.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/actionMenuToRecipe"
+            app:destination="@id/recipeFragment"
+            app:popUpTo="@id/recipeFragment"
+            app:popUpToInclusive="true" />
+    </dialog>
+    <action
+        android:id="@+id/actionToDetail"
+        app:destination="@id/detailFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.recipe.ui.detail.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="recipeID"
+            app:argType="integer" />
+        <action
+            android:id="@+id/actionDetailToSteps"
+            app:destination="@id/stepsFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/stepsFragment"
+        android:name="com.example.recipe.ui.detail.StepsFragment"
+        android:label="fragment_steps"
+        tools:layout="@layout/fragment_steps" >
+        <argument
+            android:name="data"
+            app:argType="com.example.recipe.data.model.detail.DetailResponse$AnalyzedInstruction" />
+    </dialog>
+    <action
+        android:id="@+id/actionToWeb"
+        app:destination="@id/webViewFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.example.recipe.ui.detail.WebViewFragment"
+        android:label="fragment_web_view"
+        tools:layout="@layout/fragment_web_view" >
+        <argument
+            android:name="link"
+            app:argType="string" />
+    </fragment>
 </navigation>

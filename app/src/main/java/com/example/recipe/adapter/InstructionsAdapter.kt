@@ -8,25 +8,29 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.request.CachePolicy
 import com.example.recipe.R
+import com.example.recipe.data.model.detail.DetailResponse
+import com.example.recipe.data.model.detail.DetailResponse.ExtendedIngredient
 import com.example.recipe.data.model.recipe.ResponseRecipe.Result
+import com.example.recipe.databinding.ItemInstructionBinding
 import com.example.recipe.databinding.ItemPopularBinding
+import com.example.recipe.utils.BASE_URL_IMAGE_INGREDIENT
 import com.example.recipe.utils.BaseDiffUtils
 import com.example.recipe.utils.NEW_SIZE_IMAGE
 import com.example.recipe.utils.OLD_SIZE_IMAGE
 import javax.inject.Inject
 
-class PopularAdapter @Inject constructor():RecyclerView.Adapter<PopularAdapter.Holder>() {
+class InstructionsAdapter @Inject constructor():RecyclerView.Adapter<InstructionsAdapter.Holder>() {
     //Binding
-    private lateinit var binding: ItemPopularBinding
+    private lateinit var binding: ItemInstructionBinding
 
-    private var items = emptyList<Result>()
+    private var items = emptyList<ExtendedIngredient>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularAdapter.Holder {
-        binding = ItemPopularBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InstructionsAdapter.Holder {
+        binding = ItemInstructionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return Holder()
     }
 
-    override fun onBindViewHolder(holder: PopularAdapter.Holder, position: Int) {
+    override fun onBindViewHolder(holder: InstructionsAdapter.Holder, position: Int) {
         holder.bind(items[position])
     }
 
@@ -38,36 +42,26 @@ class PopularAdapter @Inject constructor():RecyclerView.Adapter<PopularAdapter.H
 
     inner class Holder():RecyclerView.ViewHolder(binding.root){
         @SuppressLint("SetTextI18n")
-        fun bind(item:Result){
+        fun bind(item:ExtendedIngredient){
             binding.apply {
-                tvName.text = item.title.toString()
-                tvPrice.text = "${item.pricePerServing} $"
+                tvNameInstruction.text = item.name
+                tvCountInstruction.text = "${item.amount} ${item.unit}"
 
                 //Set image size
-                val imageSplit = item.image!!.split("-")
-                val imageSize = imageSplit[1].replace(OLD_SIZE_IMAGE, NEW_SIZE_IMAGE)
+                val image = "${BASE_URL_IMAGE_INGREDIENT}${item.image}"
                 //Load image
-                imgPopular.load("${imageSplit[0]}-$imageSize"){
+                imgInstruction.load(image){
                     crossfade(true)
                     crossfade(800)
                     memoryCachePolicy(CachePolicy.ENABLED)
                     error(R.drawable.ic_placeholder)
                 }
-                //Click
-                imgPopular.setOnClickListener {
-                    onItemClick?.let { it(item.id!!) }
-                }
             }
         }
     }
 
-    private var onItemClick : ((Int) -> Unit) ?= null
 
-    fun setOnItemClick(listener:(Int) -> Unit){
-        onItemClick = listener
-    }
-
-    fun setData(newData : List<Result>){
+    fun setData(newData : List<ExtendedIngredient>){
         val diffUtil = BaseDiffUtils(newData, items)
         val calculateDiff = DiffUtil.calculateDiff(diffUtil)
         items = newData

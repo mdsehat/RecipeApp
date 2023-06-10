@@ -50,7 +50,6 @@ class SplashFragment : Fragment() {
                 viewModel.readData().asLiveData().observe(viewLifecycleOwner){
                     //Delete this ui from stack
                     findNavController().popBackStack(R.id.splashFragment, true)
-
                     if (it.username.isNotEmpty()){
                         //Go to recipe
                         findNavController().navigate(R.id.actionToRecipe)

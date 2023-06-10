@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.recipe.R
@@ -34,8 +35,15 @@ class MainActivity : AppCompatActivity() {
             when(destination.id){
                 R.id.splashFragment -> visibilityBottomNav(false)
                 R.id.registerFragment -> visibilityBottomNav(false)
+                R.id.detailFragment -> visibilityBottomNav(false)
+                R.id.webViewFragment -> visibilityBottomNav(false)
+                R.id.stepsFragment -> visibilityBottomNav(false)
                 else -> visibilityBottomNav(true)
             }
+        }
+        //Menu
+        binding.mainFab.setOnClickListener{
+            navHost.navController.navigate(R.id.actionToMenu)
         }
     }
     private fun visibilityBottomNav(visibility: Boolean){

@@ -36,4 +36,34 @@
         <item name="backgroundTint">@color/darkGreen</item>
         <item name="cornerRadius">@dimen/_15mdp</item>
     </style>
+
+    <!--Chip-->
+    <style name="darkChip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/color_chip</item>
+    </style>
+    <style name="dietChip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/whiteSmoke</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:clickable">false</item>
+        <item name="android:selectable">false</item>
+    </style>
+
+    <!--ProgressBar-->
+    <style name="darkProgress">
+        <item name="colorAccent">@color/jacarta</item>
+    </style>
+    
+    <!--icon-->
+    <style name="iconDetail" >
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:drawablePadding">@dimen/_1mdp</item>
+        <item name="android:textSize">@dimen/_9font_mdp</item>
+        <item name="drawableTint">@color/gray</item>
+    </style>
+
+    <!--Rounded image view-->
+    <style name="roundedImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerRadius">@dimen/_8mdp</item>
+    </style>
 </resources>

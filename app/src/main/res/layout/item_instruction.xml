@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginHorizontal="@dimen/_5mdp"
+    android:background="@drawable/bg_rounded_light_stroke"
+    android:padding="@dimen/_5mdp">
+
+    <!--Image-->
+    <ImageView
+        android:layout_width="@dimen/_50mdp"
+        android:layout_height="@dimen/_50mdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/imgInstruction" />
+
+    <!--Name-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgInstruction"
+        android:layout_marginTop="@dimen/_5mdp"
+        android:textSize="@dimen/_9font_mdp"
+        tools:text="Name"
+        android:textColor="@color/black"
+        android:id="@+id/tvNameInstruction"/>
+
+    <!--Count-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvNameInstruction"
+        android:layout_marginTop="@dimen/_5mdp"
+        android:textSize="@dimen/_8font_mdp"
+        tools:text="2"
+        android:textColor="@color/dolphinGray"
+        android:id="@+id/tvCountInstruction"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
