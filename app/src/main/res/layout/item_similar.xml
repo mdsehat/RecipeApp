@@ -14,6 +14,7 @@
         android:layout_width="@dimen/_80mdp"
         tools:src="@tools:sample/avatars"
         android:layout_height="@dimen/_90mdp"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearance="@style/roundedImageView" />

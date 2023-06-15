@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.recipe.data.database.entity.DetailEntity
+import com.example.recipe.data.database.entity.FavoriteEntity
 import com.example.recipe.data.model.detail.DetailResponse
 import com.example.recipe.data.model.detail.SimilarResponse
 import com.example.recipe.data.repository.RecipeRepository
@@ -40,7 +41,7 @@ class DetailViewModel @Inject constructor(private val repository: RecipeReposito
         similarLiveData.value = NetworkErrorCode(response).ErrorCode()
     }
 
-    //--Local--//
+    //--Cache--//
     private fun saveDetail(entity:DetailEntity) = viewModelScope.launch {
         repository.local.saveDetail(entity)
     }
@@ -57,5 +58,19 @@ class DetailViewModel @Inject constructor(private val repository: RecipeReposito
     fun detailOffline(id:Int, response:DetailResponse){
         val entity = DetailEntity(id, response)
         saveDetail(entity)
+    }
+
+    //--Favorite--//
+    fun saveFavorite(entity: FavoriteEntity) = viewModelScope.launch {
+        repository.local.saveFavorite(entity)
+    }
+    fun deleteFavorite(entity: FavoriteEntity) = viewModelScope.launch {
+        repository.local.deleteFavorite(entity)
+    }
+    val existsFavoriteLiveData = MutableLiveData<Boolean>()
+    fun existsFavorite(id:Int) = viewModelScope.launch {
+        repository.local.existsFavorite(id).collect{
+            existsFavoriteLiveData.postValue(it)
+        }
     }
 }

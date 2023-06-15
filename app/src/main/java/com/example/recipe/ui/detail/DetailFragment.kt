@@ -19,6 +19,7 @@ import com.example.recipe.R
 import com.example.recipe.adapter.InstructionsAdapter
 import com.example.recipe.adapter.SimilarAdapter
 import com.example.recipe.adapter.StepsAdapter
+import com.example.recipe.data.database.entity.FavoriteEntity
 import com.example.recipe.data.model.detail.DetailResponse
 import com.example.recipe.data.model.detail.DetailResponse.AnalyzedInstruction.Step
 import com.example.recipe.data.model.detail.DetailResponse.ExtendedIngredient
@@ -57,6 +58,7 @@ class DetailFragment : Fragment() {
     private var recipeId = 0
     private var counterChip = 1
     private var isExistsCache = false
+    private var isExistsFavorite = false
     private val TAG = "tagCache"
 
     override fun onCreateView(
@@ -178,6 +180,16 @@ class DetailFragment : Fragment() {
                     findNavController().navigate(direction)
                 }
             }
+            //Favorite
+            viewModel.existsFavorite(recipeId)
+            checkExistsFavorite()
+            iconFav.setOnClickListener {
+                if (isExistsFavorite){
+                    deleteFavorite(data)
+                }else{
+                    saveFavorite(data)
+                }
+            }
             //Name
             tvName.text = data.title
             //Time
@@ -271,6 +283,43 @@ class DetailFragment : Fragment() {
             chip.text = it
             chip.id = counterChip++
             dietGroup.addView(chip)
+        }
+    }
+
+    //--Favorite--//
+    private fun saveFavorite(data: DetailResponse){
+        val entity = FavoriteEntity(data.id!!, data)
+        viewModel.saveFavorite(entity)
+        //Change icon
+        binding.iconFav.apply {
+            setTint(R.color.tart_orange)
+            setImageResource(R.drawable.ic_heart_circle_minus)
+        }
+    }
+    private fun deleteFavorite(data: DetailResponse){
+        val entity = FavoriteEntity(data.id!!, data)
+        viewModel.deleteFavorite(entity)
+        //Change icon
+        binding.iconFav.apply {
+            setTint(R.color.persianGreen)
+            setImageResource(R.drawable.ic_heart_circle_plus)
+        }
+    }
+
+    private fun checkExistsFavorite(){
+        viewModel.existsFavoriteLiveData.observe(viewLifecycleOwner){
+            isExistsFavorite = it
+            if (it){
+                binding.iconFav.apply {
+                    setTint(R.color.tart_orange)
+                    setImageResource(R.drawable.ic_heart_circle_minus)
+                }
+            }else{
+                binding.iconFav.apply {
+                    setTint(R.color.persianGreen)
+                    setImageResource(R.drawable.ic_heart_circle_plus)
+                }
+            }
         }
     }
 

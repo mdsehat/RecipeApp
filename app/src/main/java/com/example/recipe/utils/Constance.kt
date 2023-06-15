@@ -28,6 +28,7 @@ const val MAIN_COURSE = "main course"
 const val TYPE = "type"
 const val GLUTEN_FREE= "Gluten Free"
 const val NUMBER = "number"
+const val QUERY = "query"
 
 //Other
 const val OLD_SIZE_IMAGE = "312x231.jpg"
@@ -41,4 +42,5 @@ var COUNT_STEPS = 0
 //Database
 const val RECIPE_TABLE = "recipe_table"
 const val DETAIL_TABLE = "detail_table"
+const val FAVORITE_TABLE = "favorite_table"
 const val DATABASE_NAME = "database_name"

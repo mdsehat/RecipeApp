@@ -6,33 +6,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.detail.StepsFragment">
 
-    <!--Steps-->
-    <TextView
-        android:id="@+id/stepTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10mdp"
-        app:layout_constraintBottom_toTopOf="@id/stepsList"
-        android:drawablePadding="@dimen/_5mdp"
-        android:gravity="center_vertical"
-        android:text="@string/step"
-        android:textColor="@color/jacarta"
-        android:textSize="@dimen/_10font_mdp"
-        app:drawableStartCompat="@drawable/ic_bowl_chopsticks_noodles"
-        app:fontPath="fonts/atlas_bold.ttf"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <!--List-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/stepsList"
         android:layout_width="0dp"
+        android:layout_marginTop="@dimen/_5mdp"
         tools:listitem="@layout/item_step"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/stepTitle"
-        app:layout_constraintTop_toBottomOf="@id/stepTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:paddingBottom="@dimen/_15mdp"/>
 

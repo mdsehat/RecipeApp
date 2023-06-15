@@ -16,6 +16,7 @@ import com.example.recipe.utils.REGISTER_USERNAME
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.cancellable
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
@@ -32,7 +33,9 @@ class RegisterRepository @Inject constructor(
         val hash = stringPreferencesKey(REGISTER_HASH)
     }
 
-    private val Context.dataStore : DataStore<Preferences> by preferencesDataStore(REGISTER_INFO)
+    companion object{
+        private val Context.dataStore : DataStore<Preferences> by preferencesDataStore(REGISTER_INFO)
+    }
 
     suspend fun saveDataRegister(username: String, hash:String) {
         context.dataStore.edit {

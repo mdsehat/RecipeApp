@@ -22,7 +22,9 @@ import com.example.recipe.utils.*
 import com.example.recipe.viewmodel.RecipeViewModel
 import com.example.recipe.viewmodel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.cancellable
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -32,7 +34,6 @@ class RecipeFragment : Fragment() {
     private var _binding: FragmentRecipeBinding? = null
     private val binding get() = _binding!!
 
-    private val TAG = "myTag"
 
     @Inject
     lateinit var popularAdapter: PopularAdapter
@@ -45,15 +46,12 @@ class RecipeFragment : Fragment() {
 
     //Other
     private val viewModel: RecipeViewModel by viewModels()
+    private val registerViewModel: RegisterViewModel by viewModels()
     private var indexAutoScroll = 0
     private val args: RecipeFragmentArgs by navArgs()
-    private var isExistsCache = false
 
     //Snap
     private val snapHelper = LinearSnapHelper()
-
-
-    private val registerViewModel: RegisterViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -70,7 +68,8 @@ class RecipeFragment : Fragment() {
         //InitViews
         binding.apply {
             //Show username
-            lifecycleScope.launchWhenStarted {
+            lifecycleScope.launchWhenCreated {
+
                 registerViewModel.readData().collect {
                     userName.text = "${getString(R.string.hello)} ,${it.username} ${showUnicode()}"
                 }
@@ -169,7 +168,6 @@ class RecipeFragment : Fragment() {
     private fun loadCallRecent() {
 
         viewModel.recentLiveData.observe(viewLifecycleOwner) { response ->
-            Log.i(TAG, "loadCallRecent: ")
             binding.apply {
                 when (response) {
                     is NetworkResponse.Loading -> {
@@ -207,16 +205,8 @@ class RecipeFragment : Fragment() {
         return String(Character.toChars(0x1f44b))
     }
 
-    private fun checkExistsCache() {
-        viewModel.existsList()
-        viewModel.existsListLiveData.observe(viewLifecycleOwner) {
-            isExistsCache = it
-        }
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
 }

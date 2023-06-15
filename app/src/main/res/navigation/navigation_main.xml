@@ -83,10 +83,11 @@
         <argument
             android:name="recipeID"
             app:argType="integer" />
-        <action
-            android:id="@+id/actionDetailToSteps"
-            app:destination="@id/stepsFragment" />
+
     </fragment>
+    <action
+        android:id="@+id/actionDetailToSteps"
+        app:destination="@id/stepsFragment" />
     <dialog
         android:id="@+id/stepsFragment"
         android:name="com.example.recipe.ui.detail.StepsFragment"

@@ -1,14 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/lightGray"
+    android:id="@+id/motionLay"
+    app:layoutDescription="@xml/fragment_search_scene"
     tools:context=".ui.favorite.FavoriteFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!--Title-->
     <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        android:elevation="@dimen/_2mdp"
+        android:gravity="center"
+        android:text="@string/search"
+        android:textColor="@color/jacarta"
+        android:textSize="@dimen/_13font_mdp"
+        app:fontPath="fonts/atlas_bold.ttf"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--SearchBox-->
+    <EditText
+        android:id="@+id/searchEdt"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_50mdp"
+        android:layout_margin="@dimen/_20mdp"
+        android:background="@drawable/bg_rounded_flash_white"
+        android:drawableStart="@drawable/ic_round_search_24"
+        android:drawablePadding="@dimen/_5mdp"
+        android:drawableTint="@color/philippineSilver"
+        android:hint="@string/search"
+        android:padding="@dimen/_10mdp"
+        android:textColor="@color/darkGreen"
+        android:textColorHint="@color/philippineSilver"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    <!--List-->
+    <com.todkars.shimmer.ShimmerRecyclerView
+        android:id="@+id/rvSearch"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_10mdp"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/_75mdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchEdt"
+        app:shimmer_recycler_auto_start="true"
+        app:shimmer_recycler_item_count="1"
+        app:shimmer_recycler_layout="@layout/item_recent_shimmer"
+        app:shimmer_recycler_shape="linear" />
+
+    <!--Connection-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/connectionLaySearch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:visibility="invisible">
 
-</FrameLayout>
+        <include layout="@layout/connection_layout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.motion.widget.MotionLayout>
