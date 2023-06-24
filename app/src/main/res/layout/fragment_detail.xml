@@ -310,9 +310,11 @@
                     android:layout_marginTop="@dimen/_5mdp"
                     android:clipToPadding="false"
                     android:orientation="horizontal"
+                    android:paddingStart="@dimen/_20mdp"
+                    android:paddingEnd="@dimen/_20mdp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/instructionTitle"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/instructionDesc" />
 
                 <!--Line3-->
@@ -344,18 +346,20 @@
                     app:layout_constraintTop_toBottomOf="@id/line3" />
 
                 <!--List-->
+
+                <!--Show more-->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/stepsList"
                     android:layout_width="0dp"
-                    tools:listitem="@layout/item_step"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10mdp"
                     android:clipToPadding="false"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@id/stepTitle"
-                    app:layout_constraintTop_toBottomOf="@id/stepTitle" />
+                    app:layout_constraintTop_toBottomOf="@id/stepTitle"
+                    tools:listitem="@layout/item_step" />
 
-                <!--Show more-->
                 <TextView
                     android:id="@+id/btnShowMore"
                     android:layout_width="0dp"
@@ -406,6 +410,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
+                    android:paddingStart="@dimen/_20mdp"
+                    android:paddingEnd="@dimen/_20mdp"
                     android:scrollbars="none"
                     app:layout_constraintTop_toBottomOf="@id/dietTitle">
 
@@ -456,10 +462,12 @@
                     android:layout_marginBottom="@dimen/_20mdp"
                     android:clipToPadding="false"
                     android:orientation="horizontal"
+                    android:paddingStart="@dimen/_20mdp"
+                    android:paddingEnd="@dimen/_20mdp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/instructionTitle"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/SimilarTitle"
                     app:shimmer_recycler_auto_start="true"
                     app:shimmer_recycler_layout="@layout/item_similar_shimmer"

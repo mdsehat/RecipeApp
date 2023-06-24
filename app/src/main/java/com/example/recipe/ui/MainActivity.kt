@@ -71,8 +71,4 @@ class MainActivity : AppCompatActivity() {
         _binding = null
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
-    }
 }
