@@ -21,8 +21,12 @@ class RegisterViewModel @Inject constructor(private val repository: RegisterRepo
         //Loading
         registerLiveData.value = NetworkResponse.Loading()
         //getData
-        val response = repository.postRegister(apiKey, body)
-        registerLiveData.value = NetworkErrorCode(response).ErrorCode()
+        try {
+            val response = repository.postRegister(apiKey, body)
+            registerLiveData.value = NetworkErrorCode(response).ErrorCode()
+        }catch (e: Exception){
+            registerLiveData.value = NetworkResponse.Error("Connection error!")
+        }
     }
 
     //DataStore

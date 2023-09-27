@@ -28,7 +28,11 @@ class SearchViewModel @Inject constructor(private val repository: RandomReposito
 
     fun callSearch(map: Map<String, String>) = viewModelScope.launch {
         searchLiveData.value = NetworkResponse.Loading()
-        val response = repository.remote.getRecipe(map)
-        searchLiveData.value = NetworkErrorCode(response).ErrorCode()
+        try {
+            val response = repository.remote.getRecipe(map)
+            searchLiveData.value = NetworkErrorCode(response).ErrorCode()
+        }catch (e: Exception){
+            searchLiveData.value = NetworkResponse.Error("Connection error!")
+        }
     }
 }

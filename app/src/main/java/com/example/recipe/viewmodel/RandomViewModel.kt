@@ -27,7 +27,12 @@ class RandomViewModel @Inject constructor(private val repository: RandomReposito
 
     fun callLucky(map: Map<String, String>) = viewModelScope.launch {
         luckyLiveData.value = NetworkResponse.Loading()
-        val response = repository.remote.getRandom(map)
-        luckyLiveData.value = NetworkErrorCode(response).ErrorCode()
+        try {
+            val response = repository.remote.getRandom(map)
+            luckyLiveData.value = NetworkErrorCode(response).ErrorCode()
+        }catch (e: Exception){
+            luckyLiveData.value = NetworkResponse.Error("Connection error!")
+        }
+
     }
 }

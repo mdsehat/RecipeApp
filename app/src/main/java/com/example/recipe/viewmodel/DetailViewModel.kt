@@ -25,11 +25,16 @@ class DetailViewModel @Inject constructor(private val repository: RecipeReposito
 
     fun callDetail(id:Int, apiKey: String) = viewModelScope.launch {
         detailLiveData.value = NetworkResponse.Loading()
-        val response = repository.remote.getDetail(id, apiKey)
-        detailLiveData.value = NetworkErrorCode(response).ErrorCode()
-        //Cache
-        val cache = detailLiveData.value?.data
-        if (cache != null) detailOffline(id, cache)
+        try{
+            val response = repository.remote.getDetail(id, apiKey)
+            detailLiveData.value = NetworkErrorCode(response).ErrorCode()
+            //Cache
+            val cache = detailLiveData.value?.data
+            if (cache != null) detailOffline(id, cache)
+        }catch (e: Exception){
+            detailLiveData.value = NetworkResponse.Error("Connection error!")
+        }
+
     }
 
     //Similar
@@ -37,8 +42,13 @@ class DetailViewModel @Inject constructor(private val repository: RecipeReposito
 
     fun callSimilar(id:Int, apiKey: String) = viewModelScope.launch {
         similarLiveData.value = NetworkResponse.Loading()
-        val response = repository.remote.getSimilar(id, apiKey)
-        similarLiveData.value = NetworkErrorCode(response).ErrorCode()
+        try {
+            val response = repository.remote.getSimilar(id, apiKey)
+            similarLiveData.value = NetworkErrorCode(response).ErrorCode()
+        }catch (e: Exception){
+            detailLiveData.value = NetworkResponse.Error("Connection error!")
+        }
+
     }
 
     //--Cache--//

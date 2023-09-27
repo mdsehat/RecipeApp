@@ -18,13 +18,12 @@ import com.example.recipe.adapter.PopularAdapter
 import com.example.recipe.adapter.RecentAdapter
 import com.example.recipe.data.model.recipe.ResponseRecipe
 import com.example.recipe.databinding.FragmentRecipeBinding
+import com.example.recipe.ui.menu.MenuFragmentDirections
 import com.example.recipe.utils.*
 import com.example.recipe.viewmodel.RecipeViewModel
 import com.example.recipe.viewmodel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.cancellable
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -34,7 +33,7 @@ class RecipeFragment : Fragment() {
     private var _binding: FragmentRecipeBinding? = null
     private val binding get() = _binding!!
 
-
+    private val TAG = "tagRe"
     @Inject
     lateinit var popularAdapter: PopularAdapter
 
@@ -83,7 +82,7 @@ class RecipeFragment : Fragment() {
         }
     }
 
-
+    //--popular--//
     private fun callPopular() {
         setPopularRecycler()
         viewModel.readPopularFromDb.singleObserve(viewLifecycleOwner) { database ->
@@ -93,19 +92,6 @@ class RecipeFragment : Fragment() {
                 }
             } else {
                 viewModel.apply { callPopular(popularQueries()) }
-            }
-        }
-    }
-
-    private fun callRecent() {
-        setRecentRecycler()
-        viewModel.readRecentFromDb.singleObserve(viewLifecycleOwner) { database ->
-            if (database.isNotEmpty() && database.size > 1 && args.isUpdated.not()) {
-                database[1].response.results?.let { data ->
-                    recentAdapter.setData(data)
-                }
-            } else {
-                viewModel.apply { callRecent(recentQueries()) }
             }
         }
     }
@@ -165,6 +151,21 @@ class RecipeFragment : Fragment() {
         }
     }
 
+    //--Recent--//
+    private fun callRecent() {
+        Log.i(TAG, "callRecent: " + args.isUpdated)
+        setRecentRecycler()
+        viewModel.readRecentFromDb.singleObserve(viewLifecycleOwner) { database ->
+            if (database.isNotEmpty() && database.size > 1 && !args.isUpdated) {
+                database[1].response.results?.let { data ->
+                    recentAdapter.setData(data)
+                }
+            } else {
+                viewModel.apply { callRecent(recentQueries()) }
+            }
+        }
+    }
+
     private fun loadCallRecent() {
 
         viewModel.recentLiveData.observe(viewLifecycleOwner) { response ->
@@ -201,6 +202,7 @@ class RecipeFragment : Fragment() {
         }
     }
 
+    //--Other--//
     private fun showUnicode(): String {
         return String(Character.toChars(0x1f44b))
     }

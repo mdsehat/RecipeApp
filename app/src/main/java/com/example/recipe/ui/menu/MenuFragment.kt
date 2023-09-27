@@ -96,9 +96,6 @@ class MenuFragment : BottomSheetDialogFragment() {
             chip.setTextColor(ContextCompat.getColor(requireContext(),R.color.white))
             chip.text = it
             chip.id = chipCounter++
-            if (chip.id == 1){
-                firstId = chip.id
-            }
             view.addView(chip)
         }
     }

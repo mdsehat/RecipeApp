@@ -38,11 +38,15 @@ class RecipeViewModel @Inject constructor(
 
     fun callPopular(map: Map<String, String>) = viewModelScope.launch {
         popularLiveData.value = NetworkResponse.Loading()
-        val response = repository.remote.getRecipe(map)
-        popularLiveData.value = NetworkErrorCode(response).ErrorCode()
-        //Cache
-        val cache = popularLiveData.value!!.data
-        if (cache != null) cachingPopular(cache)
+        try {
+            val response = repository.remote.getRecipe(map)
+            popularLiveData.value = NetworkErrorCode(response).ErrorCode()
+            //Cache
+            val cache = popularLiveData.value!!.data
+            if (cache != null) cachingPopular(cache)
+        }catch (e: Exception){
+            popularLiveData.value = NetworkResponse.Error("Connection error!")
+        }
     }
 
     //Local
@@ -83,11 +87,15 @@ class RecipeViewModel @Inject constructor(
 
     fun callRecent(map: Map<String, String>) = viewModelScope.launch {
         recentLiveData.value = NetworkResponse.Loading()
-        val response = repository.remote.getRecipe(map)
-        recentLiveData.value = handlingResponseRecent(response)
-        //Cache
-        val cache = recentLiveData.value!!.data
-        if (cache != null) cachingRecent(cache)
+        try {
+            val response = repository.remote.getRecipe(map)
+            recentLiveData.value = handlingResponseRecent(response)
+            //Cache
+            val cache = recentLiveData.value!!.data
+            if (cache != null) cachingRecent(cache)
+        }catch (e: Exception){
+            popularLiveData.value = NetworkResponse.Error("Connection error!")
+        }
     }
 
     private fun handlingResponseRecent(response: Response<ResponseRecipe>): NetworkResponse<ResponseRecipe> {
@@ -98,6 +106,7 @@ class RecipeViewModel @Inject constructor(
             response.code() == 500 -> NetworkResponse.Error("Try again")
             response.body()!!.results!!.isEmpty() -> NetworkResponse.Error("Not found any items.")
             response.isSuccessful -> NetworkResponse.Success(response.body()!!)
+            !response.isSuccessful -> NetworkResponse.Error("Please check your network!")
             else -> NetworkResponse.Error(response.message())
         }
     }
@@ -112,16 +121,5 @@ class RecipeViewModel @Inject constructor(
     private fun cachingRecent(response: ResponseRecipe) {
         val entity = RecipeEntity(1, response)
         saveRecent(entity)
-    }
-
-    val existsListLiveData = MutableLiveData<Boolean>()
-    fun existsList() = viewModelScope.launch {
-        repository.local.loadRecipe().collect{
-            if (it.isNotEmpty()){
-                existsListLiveData.postValue(true)
-            }else{
-                existsListLiveData.postValue(false)
-            }
-        }
     }
 }

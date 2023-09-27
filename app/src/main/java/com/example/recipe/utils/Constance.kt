@@ -3,7 +3,7 @@ package com.example.recipe.utils
 const val BASE_URL = "https://api.spoonacular.com/"
 const val BASE_URL_IMAGE_INGREDIENT = "https://spoonacular.com/cdn/ingredients_100x100/"
 const val BASE_URL_IMAGE_SIMILAR = "https://spoonacular.com/recipeImages/"
-const val CONNECTION_TIME = 60L
+const val CONNECTION_TIME = 120L
 const val API_KEY_NUMBER = "2c7d1c2db283457e995255bffefe9930"
 
 //DataStore
